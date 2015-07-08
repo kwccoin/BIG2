@@ -1,5 +1,7 @@
-import random
+#shuffle card, deal card, define classes
 
+import random
+from big2_class import*
 #suffle cards 1-52 1-13 clubs 14-26 diamonds 27-39 hearts 40-52 spades
 
 def shuffle_card():
@@ -37,58 +39,3 @@ def find_club_3(shuffled,x):
     		if shuffled[i].get_number()==3 and shuffled[i].get_suit()=="diamond":
     			return i+1;
 
-
-class cards(object):
-	"""docstring for cards"""
-	def __init__(self, suit,number):
-		self.suit = suit
-		self.number=number
-	def get_suit(self):
-		return self.suit
-	def get_number(self):
-		return self.number
-		
-
-class big2(object):
-	"""docstring for big2"""
-	def __init__(self, NumofPlayers):
-		self.NumofPlayers = NumofPlayers
-	
-	def get_NumofPlayers(self):
-		return self.NumofPlayers
-		
-
-
-
-class player(object):
-	"""docstring fos player"""
-	def __init__(self, name,deck ):
-		
-		self.name = name
-		self.deck = deck
-
-	
-	def getname(self):
-		return self.name
-	
-	def getdeck(self):
-		return self.deck
-
-class robot(object):
-	"""docstring fos robot"""
-	def __init__(self, name,deck ):
-		
-		self.name = name
-		self.deck = deck
-	
-	def getname(self):
-		return self.name
-	
-	def getdeck(self):
-		return self.deck
-
-
-
-	#def __str__(self):
-     #   return "%s s deck is %s" % (self.name, self.deck)
-		

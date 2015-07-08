@@ -2,7 +2,8 @@
 import random
 #import deck
 from card import *
-
+from deck import *
+from big2_class import *
 
 
 print "POKER GAME : BIG 2!"
@@ -41,32 +42,40 @@ if NumberofRobots==2:
 	elif leftover_decision<51:
 		robot2.deck.append(leftover)
 
- 
-
-
-
-     
-    
-
-  
-
 
 elif NumberofRobots==3:
 
 	player0=player(player_name,deal_card(shuffled_items,NumberofRobots,0))
+	player0.deck=arrange_deck(player0.deck)
 	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1))
+	robot1.deck=arrange_deck(robot1.deck)
 	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2))
+	robot2.deck=arrange_deck(robot2.deck)
 	robot3=robot("robot3",deal_card(shuffled_items,NumberofRobots,3))
+	robot3.deck=arrange_deck(robot3.deck)
+
+#have dealed the card
+#next step: arrange the deck
+#define a function to deal the deck
 
 
 for i in range(0,13,1):
 	print player0.deck[i].get_number()
 	print player0.deck[i].get_suit()
 
-print player0.deck[1].get_number()
-print robot1.getdeck()
-print robot2.getdeck()
+
+
+
+
+
+
+
+
+#print player0.deck[1].get_number()
+#print robot1.getdeck()
+#print robot2.getdeck()
 #print robot3.getdeck()
+#deck testing
 
 
 
