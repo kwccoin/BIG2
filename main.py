@@ -41,7 +41,9 @@ if NumberofRobots==2:
 		robot1.deck.append(leftover)
 	elif leftover_decision<51:
 		robot2.deck.append(leftover)
-
+	player0.deck=arrange_deck(player0.deck)
+	robot1.deck=arrange_deck(robot1.deck)
+	robot2.deck=arrange_deck(robot2.deck)
 
 elif NumberofRobots==3:
 
@@ -64,7 +66,9 @@ for i in range(0,13,1):
 	print player0.deck[i].get_suit()
 
 
-
+find_pairs(player0)
+find_fullhouse(player0)
+find_flush(player0)
 
 
 

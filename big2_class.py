@@ -17,6 +17,7 @@ class big2(object):
 	
 	def get_NumofPlayers(self):
 		return self.NumofPlayers
+
 		
 
 
@@ -64,6 +65,7 @@ class pairs(object):
 		self.pairs_1=pairs_1
 		self.pairs_2=pairs_2
 		self.priority=priority
+		self.power=0
 	def get_pairs_1():
 		return self.pairs_1
 	def get_pairs_2():
@@ -103,6 +105,8 @@ class flushes(object):
 		self.flushes_4=flushes_4
 		self.flushes_5=flushes_5
 		self.priority=priority
+		self.power=0
+		#0:club,1:diamond,2:heart,3:spade
 	def get_flushes_1():
 		return flushes_1
 	def get_flushes_2():
