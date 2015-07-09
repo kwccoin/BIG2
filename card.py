@@ -39,3 +39,41 @@ def find_club_3(shuffled,x):
     		if shuffled[i].get_number()==3 and shuffled[i].get_suit()=="diamond":
     			return i+1;
 
+def club_3_decision_case1(num_robots,shuffled_items,player0,robot1,robot2):
+	leftover=deal_card(shuffled_items,num_robots,3)
+	#gives leftover to someone who has club 3
+	leftover_decision=find_club_3(shuffled_items,1)
+	#consider the case that club 3 is leftover
+	if leftover_decision==52:
+		leftover_decision=find_club_3(shuffled_items,2)
+	if leftover_decision<17:
+		player0.deck.append(leftover)
+		player0.have_club_3=1
+	elif leftover_decision<34:
+		robot1.deck.append(leftover)
+		robot1.have_club_3=1
+	elif leftover_decision<51:
+		robot2.deck.append(leftover)
+		robot2.have_club_3=1
+
+def club_3_decision_case2(shuffled_items,player0,robot1,robot2,robot3):
+
+	leftover_decision=find_club_3(shuffled_items,1)
+	if leftover_decision<13:
+		player0.have_club_3=1
+	elif leftover_decision<26:
+		robot1.have_club_3=1
+	elif leftover_decision<39:
+		robot2.have_club_3=1
+	elif leftover_decision<52:
+		robot3.have_club_3=1
+			
+
+
+
+
+
+
+
+
+

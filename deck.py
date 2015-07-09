@@ -139,6 +139,8 @@ def find_flush(player):
 		elif counter[i]==0:
 			streak=0
 		i=i+1
+	if len(player.flushes)!=0:
+		player.have_flushes=1
 
 def extract_flush(deck,counter_1,start_number):
 	extraction=[]
@@ -177,6 +179,11 @@ def count_start(start_point,counter,start_number,n):
 	for i in range (0,n,1):
 		start_point=start_point+counter[start_number+i+1]
 	return start_point
+
+def check_deck(player):
+	find_pairs(player)
+	find_fullhouse(player)
+	find_flush(player)
 
 
 

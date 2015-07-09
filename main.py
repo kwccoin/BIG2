@@ -27,23 +27,12 @@ if NumberofRobots==2:
 	player0=player(player_name,deal_card(shuffled_items,NumberofRobots,0))
 	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1))
 	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2))
-
-	leftover=deal_card(shuffled_items,NumberofRobots,3)
-
-    #gives leftover to someone who has club 3
-	leftover_decision=find_club_3(shuffled_items,1)
-	#consider the case that club 3 is leftover
-	if leftover_decision==52:
-		leftover_decision=find_club_3(shuffled_items,2)
-	if leftover_decision<17:
-		player0.deck.append(leftover)
-	elif leftover_decision<34:
-		robot1.deck.append(leftover)
-	elif leftover_decision<51:
-		robot2.deck.append(leftover)
+	#gives leftover to someone who have club 3
+	club_3_decision_case1(NumberofRobots,shuffled_items,player0,robot1,robot2)
 	player0.deck=arrange_deck(player0.deck)
 	robot1.deck=arrange_deck(robot1.deck)
 	robot2.deck=arrange_deck(robot2.deck)
+
 
 elif NumberofRobots==3:
 
@@ -55,20 +44,25 @@ elif NumberofRobots==3:
 	robot2.deck=arrange_deck(robot2.deck)
 	robot3=robot("robot3",deal_card(shuffled_items,NumberofRobots,3))
 	robot3.deck=arrange_deck(robot3.deck)
+	club_3_decision_case2(shuffled_items,player0,robot1,robot2,robot3)
+	
 
 #have dealed the card
 #next step: arrange the deck
 #define a function to deal the deck
 
 
-for i in range(0,13,1):
-	print player0.deck[i].get_number()
-	print player0.deck[i].get_suit()
 
+finish_game=0
 
-find_pairs(player0)
-find_fullhouse(player0)
-find_flush(player0)
+if NumberofRobots==3:
+	player_lists=[player0,robot1,robot2,robot3]
+	while finish_game==0:
+		check_deck(player_lists[0])
+		check_deck(player_lists[1])
+		check_deck(player_lists[2])
+		check_deck(player_lists[3])
+
 
 
 
