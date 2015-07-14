@@ -3,9 +3,11 @@ from card import *
 from big2_class import *
 
 
-def arrange_deck(unarranged_deck):
-	arranged=object_quicksort(unarranged_deck)
-	return arranged
+def arrange_deck(player):
+	player.deck=object_quicksort(player.deck)
+	length=len(player.deck)
+	for i in range(0,length,1):
+		player.deck[i].index=i
 
 
 
@@ -107,6 +109,8 @@ def find_fullhouse(player):
 
 def find_flush(player):
 	length=len(player.deck)
+	#use a counter to see how many cards for each numbers
+	#if we have streak 5 numbers that all have cards then we have flush(apply extract_flush)
 	counter=[]
 	#initial counter[] to 0
 	for i in range(0,13,1):
@@ -139,6 +143,7 @@ def find_flush(player):
 		elif counter[i]==0:
 			streak=0
 		i=i+1
+		temp_flushes=[]
 	if len(player.flushes)!=0:
 		player.have_flushes=1
 
@@ -146,6 +151,7 @@ def extract_flush(deck,counter_1,start_number):
 	extraction=[]
 	start_point=0
 	temp=counter_1
+	counter=0
 	
 	for i in range(0,start_number,1):
 		
@@ -159,6 +165,7 @@ def extract_flush(deck,counter_1,start_number):
 			for k in range(0,counter_1[start_number+2],1):
 				for m in range(0,counter_1[start_number+3],1):
 					for n in range(0,counter_1[start_number+4],1):
+						counter=counter+1
 						this_flushes=flushes(deck[start_point-i],deck[count_start(start_point,counter_1,start_number,1)-j],deck[count_start(start_point,counter_1,start_number,2)-k],deck[count_start(start_point,counter_1,start_number,3)-m],deck[count_start(start_point,counter_1,start_number,4)-n],1)
 						extraction.append(this_flushes)
 						""" flushes set test.
@@ -173,6 +180,7 @@ def extract_flush(deck,counter_1,start_number):
 						print this_flushes.flushes_5.get_number()
 						print this_flushes.flushes_5.get_suit()
 						"""
+
 	return extraction				
 
 def count_start(start_point,counter,start_number,n):
@@ -181,6 +189,7 @@ def count_start(start_point,counter,start_number,n):
 	return start_point
 
 def check_deck(player):
+	arrange_deck(player)
 	find_pairs(player)
 	find_fullhouse(player)
 	find_flush(player)
