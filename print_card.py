@@ -8,12 +8,15 @@ def print_fullhouses(fullhouses):
 
 def print_flushes(flushes):
 	print '%d_%s %d_%s %d_%s %d_%s %d_%s' %(flushes.flushes_1.get_number(),flushes.flushes_1.get_suit(),flushes.flushes_2.get_number(),flushes.flushes_2.get_suit(),flushes.flushes_3.get_number(),flushes.flushes_3.get_suit(),flushes.flushes_4.get_number(),flushes.flushes_4.get_suit(),flushes.flushes_5.get_number(),flushes.flushes_5.get_suit()),
-
+def del_pairs(player,pairs):
+	del_list=[pairs.pairs_1.index,pairs.pairs_2.index]
+	del_list.sort()
+	for i in range(1,-1,-1):
+		del player.deck[del_list[i]]
 def del_fullhouses(player,fullhouses):
 	#!!!you have to del the card start from bigger number in case the order will be messed up.
 	del_list=[fullhouses.fullhouses_1.index,fullhouses.fullhouses_2.index,fullhouses.fullhouses_3.index,fullhouses.fullhouses_4.index,fullhouses.fullhouses_5.index]
 	del_list.sort()
-	print del_list
 	for i in range (4,-1,-1):
 		del player.deck[del_list[i]]
 
@@ -21,6 +24,5 @@ def del_flushes(player,flushes):
 	#!!!you have to del the card start from bigger number in case the order will be messed up.
 	del_list=[flushes.flushes_1.index,flushes.flushes_2.index,flushes.flushes_3.index,flushes.flushes_4.index,flushes.flushes_5.index]
 	del_list.sort()
-	print del_list
 	for i in range (4,-1,-1):
 		del player.deck[del_list[i]]

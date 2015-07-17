@@ -27,21 +27,20 @@ shuffled_items=shuffle_card()
 if NumberofRobots==2:
 
 	player0=player(player_name,deal_card(shuffled_items,NumberofRobots,0),NumberofRobots)
-	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1))
-	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2))
+	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1),NumberofRobots)
+	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2),NumberofRobots)
+
 	#gives leftover to someone who have club 3
 	club_3_decision_case1(NumberofRobots,shuffled_items,player0,robot1,robot2)
-	player0.deck=arrange_deck(player0.deck)
-	robot1.deck=arrange_deck(robot1.deck)
-	robot2.deck=arrange_deck(robot2.deck)
+	
 
 
 elif NumberofRobots==3:
 
 	player0=player(player_name,deal_card(shuffled_items,NumberofRobots,0),NumberofRobots)
-	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1))
-	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2))
-	robot3=robot("robot3",deal_card(shuffled_items,NumberofRobots,3))
+	robot1=robot("robot1",deal_card(shuffled_items,NumberofRobots,1),NumberofRobots)
+	robot2=robot("robot2",deal_card(shuffled_items,NumberofRobots,2),NumberofRobots)
+	robot3=robot("robot3",deal_card(shuffled_items,NumberofRobots,3),NumberofRobots)
 
 	club_3_decision_case2(shuffled_items,player0,robot1,robot2,robot3)
 
@@ -60,24 +59,45 @@ finish_game=0
 if NumberofRobots==3:
 	player_lists=[player0,robot1,robot2,robot3]
 	order=who_have_3(player_lists)
-	print 'check'
-	print order
-	while finish_game==0:
+	first_play=1
+	while finish_game!=2:
 		check_deck(player_lists[order])
+		
+		if first_play==1:
+			first_play=0
+			player_lists[order].first_play_club_3()
+			
+			player_lists[(order+1)%4].state=player_lists[order].state
+			player_lists[(order+1)%4].last_combination.append(player_lists[order].current_combination[-1])
+		else: 
+			play_deck(player_lists,order,1)
+		print "state2"
+		print player_lists[(order+1)%4].state
+
+
+		check_deck(player_lists[(order+1)%4])
+		play_deck(player_lists,order,1)
+		print "state3"
+		print player_lists[(order+2)%4].state
+
+		check_deck(player_lists[(order+2)%4])
+		play_deck(player_lists,order,2)
+		print "state4"
+		print player_lists[(order+3)%4].state
+
+		check_deck(player_lists[(order+3)%4])
+		play_deck(player_lists,order,3)
+		print "state1"
+		print player_lists[order].state
+		finish_game=finish_game+1
+
+
+"""
 		for i in range(0,13,1):
 			print player_lists[order].deck[i].get_number()
 			print player_lists[order].deck[i].get_suit()
 			print player_lists[order].deck[i].index
-		player_lists[order].first_play_club_3()
-		for i in range(0,12,1):
-			print player_lists[order].deck[i].get_number()
-			print player_lists[order].deck[i].get_suit()
-			print player_lists[order].deck[i].index
-		check_deck(player_lists[(order+1)%4])
-		check_deck(player_lists[(order+2)%4])
-		check_deck(player_lists[(order+3)%4])
-		finish_game=1
-
+			"""
 
 
 """

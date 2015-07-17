@@ -1,6 +1,8 @@
 #arrange deck, find pairs fullhouse flush....(and set priority)
 from card import *
+from priority_set import *
 from big2_class import *
+#from print_card import *
 
 
 def arrange_deck(player):
@@ -55,6 +57,7 @@ def quicksort(array):
 
 #find pairs and return all possible pairs we can select
 def find_pairs(player):
+	player.pairs=[]
 	length=len(player.deck)
 	i=0
 	#length-1 coz we only count its gaps like {1 | 2 | 3}
@@ -87,6 +90,7 @@ def find_pairs(player):
 #
 #needa deal with the condition if we got 4 same numbers like AAAA
 def find_fullhouse(player):
+	player.fullhouses=[]
 	length=len(player.deck)
 	i=0
 	if player.have_pairs==0:
@@ -108,6 +112,7 @@ def find_fullhouse(player):
 		player.have_fullhouses=1
 
 def find_flush(player):
+	player.flushes=[]
 	length=len(player.deck)
 	#use a counter to see how many cards for each numbers
 	#if we have streak 5 numbers that all have cards then we have flush(apply extract_flush)
@@ -168,7 +173,7 @@ def extract_flush(deck,counter_1,start_number):
 						counter=counter+1
 						this_flushes=flushes(deck[start_point-i],deck[count_start(start_point,counter_1,start_number,1)-j],deck[count_start(start_point,counter_1,start_number,2)-k],deck[count_start(start_point,counter_1,start_number,3)-m],deck[count_start(start_point,counter_1,start_number,4)-n],1)
 						extraction.append(this_flushes)
-						""" flushes set test.
+						"""
 						print this_flushes.flushes_1.get_number()
 						print this_flushes.flushes_1.get_suit()
 						print this_flushes.flushes_2.get_number()
@@ -180,7 +185,6 @@ def extract_flush(deck,counter_1,start_number):
 						print this_flushes.flushes_5.get_number()
 						print this_flushes.flushes_5.get_suit()
 						"""
-
 	return extraction				
 
 def count_start(start_point,counter,start_number,n):
@@ -189,11 +193,18 @@ def count_start(start_point,counter,start_number,n):
 	return start_point
 
 def check_deck(player):
+
+	
 	arrange_deck(player)
 	find_pairs(player)
 	find_fullhouse(player)
 	find_flush(player)
+	priority_set(player)
 
+def play_deck(player_lists,order,i):
+	player_lists[(order+i)%4].play_card()
+	player_lists[(order+i+1)%4].state=player_lists[(order+i)%4].state
+	player_lists[(order+i+1)%4].last_combination.append(player_lists[(order+i)%4].current_combination[-1])
 
 
 
