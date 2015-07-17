@@ -196,14 +196,22 @@ def check_deck(player):
 
 	
 	arrange_deck(player)
+	player.pairs=[]
 	find_pairs(player)
+	player.fullhouses=[]
 	find_fullhouse(player)
+	player.flushes=[]
 	find_flush(player)
 	priority_set(player)
 
 def play_deck(player_lists,order,i):
-	player_lists[(order+i)%4].play_card()
+	finish_game=0
+	finish_game=player_lists[(order+i)%4].play_card()
+	print "finish_game"
+	print finish_game
 	player_lists[(order+i+1)%4].state=player_lists[(order+i)%4].state
+	
+
 	player_lists[(order+i+1)%4].last_combination.append(player_lists[(order+i)%4].current_combination[-1])
 
 

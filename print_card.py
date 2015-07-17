@@ -26,3 +26,5 @@ def del_flushes(player,flushes):
 	del_list.sort()
 	for i in range (4,-1,-1):
 		del player.deck[del_list[i]]
+
+

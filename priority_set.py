@@ -1,9 +1,23 @@
 from big2_class import *
 
 def priority_set(player):
+	priority_set_single
 	priority_set_pairs(player)
 	priority_set_fullhouses(player)
 	priority_set_flushes(player)
+
+def priority_set_single(player):
+	length_deck=len(player.deck)
+
+	for i in range(0,length_deck,1):
+		value=player.deck[i].get_number()
+		if value==1:
+			player.deck[i].priority=14
+		elif value==2:
+			player.deck[i].priority=15
+		else:
+			player.deck[i].priority=value
+
 
 def priority_set_pairs(player):
 	length_pairs=len(player.pairs)

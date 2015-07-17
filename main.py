@@ -60,7 +60,7 @@ if NumberofRobots==3:
 	player_lists=[player0,robot1,robot2,robot3]
 	order=who_have_3(player_lists)
 	first_play=1
-	while finish_game!=2:
+	while True:
 		check_deck(player_lists[order])
 		
 		if first_play==1:
@@ -70,27 +70,32 @@ if NumberofRobots==3:
 			player_lists[(order+1)%4].state=player_lists[order].state
 			player_lists[(order+1)%4].last_combination.append(player_lists[order].current_combination[-1])
 		else: 
-			play_deck(player_lists,order,1)
-		print "state2"
-		print player_lists[(order+1)%4].state
+			finish_game=play_deck(player_lists,order,0)
+			if finish_game==1:
+				print "%s won!!" %(player_lists[order].getname())
+				break
+		
 
 
 		check_deck(player_lists[(order+1)%4])
-		play_deck(player_lists,order,1)
-		print "state3"
-		print player_lists[(order+2)%4].state
+		finish_game=play_deck(player_lists,order,1)
+		if finish_game==1:
+			print "%s won!!" %(player_lists[(order+1)%4].getname())
+			break
+		
 
 		check_deck(player_lists[(order+2)%4])
-		play_deck(player_lists,order,2)
-		print "state4"
-		print player_lists[(order+3)%4].state
-
+		finish_game=play_deck(player_lists,order,2)
+		if finish_game==1:
+			print "%s won!!" %(player_lists[(order+2)%4].getname())
+			break
+		
 		check_deck(player_lists[(order+3)%4])
 		play_deck(player_lists,order,3)
-		print "state1"
-		print player_lists[order].state
-		finish_game=finish_game+1
-
+		if finish_game==1:
+			print "%s won!!" %(player_lists[(order+3)%4].getname())
+			break
+		
 
 """
 		for i in range(0,13,1):

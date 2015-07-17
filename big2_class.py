@@ -11,6 +11,7 @@ class cards(object):
 		self.suit = suit
 		self.number=number
 		self.index=0
+		self.priority=0
 	def get_suit(self):
 		return self.suit
 	def get_number(self):
@@ -65,22 +66,28 @@ class player(big2):
 		have_play=0
 		if self.state==1:
 			for i in range(0,length_deck,1):
-				if self.deck[i].get_number()>self.last_combination[-1].get_number():
+				if self.deck[i].priority>self.last_combination[-1].priority:
 					playable_list.append(self.deck[i])
 					print '(%d.)' %(counter),
-					print "%d_%s " %s(self.deck[i].get_number(),self.deck[i].get_suit())
+					print "%d_%s " %(self.deck[i].get_number(),self.deck[i].get_suit())
+
 					counter=counter+1
 			if len(playable_list)!=0:
 				print " "
 				choice=input("choose 1 from above list:")
-				print "%d_%s " %(self.deck[i].get_number(),self.deck[i].get_suit())
+				print "%d_%s " %(playable_list[choice-1].get_number(),playable_list[choice-1].get_suit())
 				self.current_combination.append(playable_list[choice-1])
 				self.state=1
 				del self.deck[i]
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=1
+				return 0
+
 		elif self.state==2:
 			for  i in range(0,length_pairs,1):
 				if self.pairs[i].priority>self.last_combination[-1].priority:
@@ -95,10 +102,14 @@ class player(big2):
 				self.current_combination.append(playable_list[choice-1])
 				self.state=2
 				del_pairs(self,playable_list[choice-1])
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=2
+				return 0
 
 
 		elif self.state==3:
@@ -115,10 +126,14 @@ class player(big2):
 				self.current_combination.append(playable_list[choice-1])
 				self.state=3
 				del_fullhouses(self,playable_list[choice-1])
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=3
+				return 0
 
 		elif self.state==4:
 			for  i in range(0,length_flushes,1):
@@ -134,10 +149,14 @@ class player(big2):
 				self.current_combination.append(playable_list[choice-1])
 				self.state=4
 				del_flushes(self,playable_list[choice-1])
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=3
+				return 0
 
 
 
@@ -285,7 +304,7 @@ class robot(big2):
 		length_flushes=len(self.flushes)
 		if self.state==1:
 			for i in range(0,length_deck,1):
-				if self.deck[i].get_number()>self.last_combination[-1].get_number():
+				if self.deck[i].priority>self.last_combination[-1].priority:
 					print self.deck[i].get_number()
 					playable_list.append(self.deck[i])
 			if len(playable_list)!=0:
@@ -295,16 +314,19 @@ class robot(big2):
 					if playable_list[i].get_number()<min:
 						min=playable_list[i].get_number()
 						temp=i
-				print "this is temp ",
-				print temp
+
 				print "%d_%s " %(playable_list[temp].get_number(),playable_list[temp].get_suit())
 				self.current_combination.append(playable_list[temp])
 				self.state=1
 				del self.deck[playable_list[i].index]
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=1
+				return 0
 		
 		elif self.state==2:
 			for  i in range(0,length_pairs,1):
@@ -321,11 +343,14 @@ class robot(big2):
 				self.current_combination.append(playable_list[temp])
 				self.state=2
 				del_pairs(self,playable_list[temp])
-		
+				if len(self.deck)==0:
+					return 1
+				return 0		
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=2
+				return 0
 
 		elif self.state==3:
 			for  i in range(0,length_fullhouses,1):
@@ -339,14 +364,18 @@ class robot(big2):
 						min=playable_list[i].priority
 						temp=i
 				print_fullhouses(playable_list[temp])
+				print " "
 				self.current_combination.append(playable_list[temp])
 				self.state=3
 				del_fullhouses(self,playable_list[temp])
-		
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=3
+				return 0
 
 		elif self.state==4:
 			for  i in range(0,length_flushes,1):
@@ -360,14 +389,18 @@ class robot(big2):
 						min=playable_list[i].priority
 						temp=i
 				print_flushes(playable_list[temp])
+				print " "
 				self.current_combination.append(playable_list[temp])
 				self.state=4
 				del_flushes(self,playable_list[temp])
-		
+				if len(self.deck)==0:
+					return 1
+				return 0
 			else:
 				print "pass"
 				self.current_combination.append(self.last_combination[-1])
 				self.state=4
+				return 0
 
 	def first_play_club_3(self):
 		length_deck=len(self.deck)
